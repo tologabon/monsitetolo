@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
   <title>TOLO</title>
   <style>
 
@@ -355,37 +356,7 @@
 
     updateStep();
   });
-// notion 
 
-  document.getElementById("multi-step-form").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Empêche le rechargement de la page par défaut
-
-  // Récupérer les valeurs du formulaire
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const combination = document.getElementById("combination").value;
-
-  try {
-    // Envoyer les données au serveur avec fetch ou axios
-    const response = await fetch("/submit-form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, phone, combination }), // Envoyer les données en JSON
-    });
-
-    if (response.ok) {
-      alert("Formulaire soumis avec succès !");
-    } else {
-      alert("Une erreur s'est produite lors de la soumission.");
-    }
-  } catch (error) {
-    console.error("Erreur:", error);
-    alert("Impossible d'envoyer les données pour le moment.");
-  }
-});
 
 </script>
 
