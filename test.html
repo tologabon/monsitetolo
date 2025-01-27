@@ -237,8 +237,7 @@
 
 
   </style>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
 </head>
 <body>
   <!-- Ton formulaire reste inchangé -->
@@ -298,8 +297,9 @@
         </div>
         <div class="form-footer">
           <button type="button" class="back-btn">Retour</button>
-          <button onclick="window.location.href='pay.html'"type="button" class="submit-btn" id="submit">Confirmer</button>
+          <button onclick="window.location.href='pay.html'"type="submit" class="submit-btn" id="submit">Confirmer</button>
           
+
         </div>
       </div>
     </form>
@@ -355,6 +355,38 @@
 
     updateStep();
   });
+// notion 
+
+  document.getElementById("multi-step-form").addEventListener("submit", async (e) => {
+  e.preventDefault(); // Empêche le rechargement de la page par défaut
+
+  // Récupérer les valeurs du formulaire
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const combination = document.getElementById("combination").value;
+
+  try {
+    // Envoyer les données au serveur avec fetch ou axios
+    const response = await fetch("/submit-form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, phone, combination }), // Envoyer les données en JSON
+    });
+
+    if (response.ok) {
+      alert("Formulaire soumis avec succès !");
+    } else {
+      alert("Une erreur s'est produite lors de la soumission.");
+    }
+  } catch (error) {
+    console.error("Erreur:", error);
+    alert("Impossible d'envoyer les données pour le moment.");
+  }
+});
+
 </script>
 
 </body>
