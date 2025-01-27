@@ -357,8 +357,56 @@
     updateStep();
   });
 
-
 </script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCiR7Vl-YICqr_JA0dbjRqXicPmiLKl0pk",
+    authDomain: "tolo-89fa8.firebaseapp.com",
+    databaseURL: "https://tolo-89fa8-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "tolo-89fa8",
+    storageBucket: "tolo-89fa8.firebasestorage.app",
+    messagingSenderId: "364907938209",
+    appId: "1:364907938209:web:1e83a99e588b57cded4be0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+
+    // Initialisation de la base de données Realtime Database
+    const database = firebase.database(app);
+
+    // Écouteur pour gérer l'envoi du formulaire
+    document.getElementById("firebaseForm").addEventListener("submit", (e) => {
+      e.preventDefault(); // Empêche le rechargement par défaut de la page lors de l'envoi
+
+      // Récupère les valeurs des champs du formulaire
+      const name = document.getElementById("name").value.trim(); // Récupère et nettoie la valeur du champ "Nom"
+      const email = document.getElementById("email").value.trim(); // Récupère et nettoie la valeur du champ "Email"
+      const phone = document.getElementById("phone").value.trim(); // Récupère et nettoie la valeur du champ "Téléphone"
+      const combination = document.getElementById("combination").value.trim(); // Récupère et nettoie la valeur du champ "Combinaison"
+
+      // Envoie les données dans la base de données Firebase sous la clé "form-data"
+      firebase.database().ref("form-data").push({
+        name: name, // Ajoute le nom
+        email: email, // Ajoute l'email
+        phone: phone, // Ajoute le téléphone
+        combination: combination, // Ajoute la combinaison
+      })
+      .then(() => {
+        alert("Données enregistrées avec succès !"); // Affiche une confirmation si tout s'est bien passé
+        document.getElementById("firebaseForm").reset(); // Réinitialise le formulaire
+      })
+      .catch((error) => {
+        console.error("Erreur lors de l'enregistrement :", error); // Affiche un message d'erreur si l'enregistrement échoue
+      });
+    });
+</script>
 </body>
 </html>
