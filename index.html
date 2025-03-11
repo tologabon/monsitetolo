@@ -28,11 +28,9 @@
 
         header h1 { 
             font-size: 40px;
-            text-align: center;
             font-family: 'Fredoka One', sans-serif;
-  color: white;    /* Blanc comme dans l'image */
-  text-align: center;
-    }
+            color: white;
+        }
 
         .card {
             background-color: white;
@@ -64,21 +62,11 @@
         }
 
         .airtel {
-            background-color:  red;
-            padding: 15px ;
-        }
-
-        .airtel:hover {
-            background-color: #3700b3;
+            background-color: red;
         }
 
         .mobicash {
             background-color: orangered;
-            padding: 15px ;
-        }
-
-        .mobicash:hover {
-            background-color: #3700b3;
         }
 
         .pay-container {
@@ -101,19 +89,11 @@
         }
 
         .pay-button {
-            background-color: #44326A;
-        }
-
-        .pay-button:hover {
-            background-color: #302053;
+            background-color: red;
         }
 
         .back-button {
             background-color: #bbb;
-        }
-
-        .back-button:hover {
-            background-color: #999;
         }
     </style>
     <script>
@@ -124,6 +104,14 @@
             document.getElementById('initial-card').style.display = 'none';
             document.getElementById('payment-card').style.display = 'block';
             document.getElementById('selected-payment').textContent = `Vous avez sélectionné : ${method}`;
+            
+            if (method === "Airtel Money") {
+                document.getElementById('airtel-options').style.display = 'block';
+                document.getElementById('pay-button').style.display = 'none';
+            } else {
+                document.getElementById('airtel-options').style.display = 'none';
+                document.getElementById('pay-button').style.display = 'block';
+            }
         }
 
         function goBack() {
@@ -132,26 +120,26 @@
         }
 
         function processPayment() {
-            if (selectedMethod === "Airtel Money") {
+            if (selectedMethod === "Airtel Money" || selectedMethod === "Airtel 1") {
                 window.location.href = "tel:*150*2*1*076502128*550#";
-            } else if (selectedMethod === "Mobicash") {
-                window.location.href = "tel:*550**2*065423264*550#";
-            } else {
+            }
+            else if (selectedMethod === "Airtel 2") {
+                window.location.href = "tel:*150*2*2*1*076502128*550#";
+            }
+            else if (selectedMethod === "Mobicash") {
+                window.location.href = "tel:*550*2*065423264*550#";
+            }
+            else {
                 alert("Aucune méthode de paiement sélectionnée !");
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-     
-       
-            <h1>TOLO</h1>
-       
+        <h1>TOLO</h1>
     </header>
 
-    <!-- Initial Card -->
     <div class="card" id="initial-card">
         <p>Sélectionnez votre méthode de paiement :</p>
         <div class="button-container">
@@ -160,18 +148,20 @@
         </div>
     </div>
 
-    <!-- Payment Confirmation Card -->
     <div class="card" id="payment-card" style="display: none;">
         <p id="selected-payment">Vous avez sélectionné :</p>
+        <div id="airtel-options" style="display: none;">
+            <button class="pay-button" onclick="processPayment()">Airtel 1</button>
+            <button class="pay-button" onclick="processPayment()">Airtel 2</button>
+        </div>
         <div class="pay-container">
             <button class="back-button" onclick="goBack()">Retour</button>
-            <button class="pay-button" onclick="processPayment()">Payer</button>
+            <button class="pay-button" id="pay-button" onclick="processPayment()">Payer</button>
         </div>
     </div>
     
-        <a href="https://tolo.fillout.com/t/93SJFGJWbTus" target="_blank">
-            <button class="pay-button" style="background-color: green; padding: 15px 30px;">Nouveaux TOLO</button>
-        </a>
-    </div>
+    <a href="https://tolo.fillout.com/t/93SJFGJWbTus" target="_blank">
+        <button class="pay-button" style="background-color: green; padding: 15px 30px;">Nouveaux TOLO</button>
+    </a>
 </body>
 </html>
