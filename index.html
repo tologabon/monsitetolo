@@ -17,7 +17,6 @@
             padding: 20px 0;
             box-sizing: border-box;
         }
-
         header {
             width: 100%;
             text-align: center;
@@ -25,13 +24,12 @@
             color: white;
             padding: 15px 0;
         }
-
         header h1 { 
             font-size: 40px;
+            text-align: center;
             font-family: 'Fredoka One', sans-serif;
             color: white;
         }
-
         .card {
             background-color: white;
             border-radius: 15px;
@@ -43,13 +41,12 @@
             margin: 20px 0;
             box-sizing: border-box;
         }
-
         .button-container {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 20px;
         }
-
         .button {
             padding: 15px 30px;
             font-size: 16px;
@@ -60,22 +57,23 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
-        .airtel {
+        .airtel1, .airtel2 {
             background-color: red;
-            padding: 15px;
         }
-
+        .airtel1:hover, .airtel2:hover {
+            background-color: #3700b3;
+        }
         .mobicash {
             background-color: orangered;
         }
-
+        .mobicash:hover {
+            background-color: #3700b3;
+        }
         .pay-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
-
         .pay-button, .back-button {
             flex: 1;
             margin: 0 10px;
@@ -88,90 +86,64 @@
             transition: background-color 0.3s;
             color: white;
         }
-
         .pay-button {
-            background-color: red;
+            background-color: #44326A;
         }
-
+        .pay-button:hover {
+            background-color: #302053;
+        }
         .back-button {
             background-color: #bbb;
+        }
+        .back-button:hover {
+            background-color: #999;
         }
     </style>
     <script>
         let selectedMethod = "";
-
         function selectPayment(method) {
             selectedMethod = method;
             document.getElementById('initial-card').style.display = 'none';
             document.getElementById('payment-card').style.display = 'block';
             document.getElementById('selected-payment').textContent = `Vous avez sélectionné : ${method}`;
-            
-            if (method === "Airtel Money") {
-                document.getElementById('airtel-options').style.display = 'block';
-                document.getElementById('pay-button').style.display = 'none';
-            } else {
-                document.getElementById('airtel-options').style.display = 'none';
-                document.getElementById('pay-button').style.display = 'block';
-            }
         }
-
         function goBack() {
             document.getElementById('payment-card').style.display = 'none';
             document.getElementById('initial-card').style.display = 'block';
         }
-
         function processPayment() {
-            let selectedMethod = document.getElementById("paymentMethod").value;
-            console.log("Méthode sélectionnée :", selectedMethod); // Affiche la méthode sélectionnée
-
-            let ussdCode = "";
-
-            if (selectedMethod === "Airtel 1") {
-                ussdCode = "*150*2*1*076502128*550#";
-            } else if (selectedMethod === "Airtel 2") {
-                ussdCode = "*150*2*2*1*076502128*550#";
+            if (selectedMethod === "Airtel Money 1") {
+                window.location.href = "tel:*150*2*2*1*076502128*550#";
+            } else if (selectedMethod === "Airtel Money 2") {
+                window.location.href = "tel:*150*2*1*076502128*550#";
             } else if (selectedMethod === "Mobicash") {
-                ussdCode = "*550*2*065423264*550#";
+                window.location.href = "tel:*550**2*065423264*550#";
             } else {
                 alert("Aucune méthode de paiement sélectionnée !");
-                return; // Stop execution if no method is selected
             }
-
-            console.log("Code USSD généré :", ussdCode); // Vérifie quel code est généré
-            alert("Code USSD : " + ussdCode); // Affiche le code dans une alerte
-
-            // Redirection vers le code USSD
-            window.location.href = "tel:" + encodeURIComponent(ussdCode);
         }
-
-
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>TOLO</h1>
     </header>
-
     <div class="card" id="initial-card">
         <p>Sélectionnez votre méthode de paiement :</p>
         <div class="button-container">
-            <button class="button airtel" onclick="selectPayment('Airtel Money')">Airtel Money</button>
+            <button class="button airtel1" onclick="selectPayment('Airtel Money 1')">Airtel Money 1</button>
+            <button class="button airtel2" onclick="selectPayment('Airtel Money 2')">Airtel Money 2</button>
             <button class="button mobicash" onclick="selectPayment('Mobicash')">Mobicash</button>
         </div>
     </div>
-
     <div class="card" id="payment-card" style="display: none;">
         <p id="selected-payment">Vous avez sélectionné :</p>
-        <div id="airtel-options" style="display: none;">
-            <button class="pay-button" onclick="processPayment()">Airtel 1</button>
-            <button class="pay-button" onclick="processPayment()">Airtel 2</button>
-        </div>
         <div class="pay-container">
             <button class="back-button" onclick="goBack()">Retour</button>
-            <button class="pay-button" id="pay-button" onclick="processPayment()">Payer</button>
+            <button class="pay-button" onclick="processPayment()">Payer</button>
         </div>
     </div>
-    
     <a href="https://tolo.fillout.com/t/93SJFGJWbTus" target="_blank">
         <button class="pay-button" style="background-color: green; padding: 15px 30px;">Nouveaux TOLO</button>
     </a>
