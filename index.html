@@ -121,21 +121,25 @@
         }
 
         function processPayment() {
-    console.log("Méthode sélectionnée :", selectedMethod); // Vérifie la valeur de selectedMethod
+        let selectedMethod = document.getElementById("paymentMethod").value;
+        console.log("Méthode sélectionnée :", selectedMethod); // Debugging
 
-    if (selectedMethod === "Airtel Money" || selectedMethod === "Airtel 1") {
-        window.location.href = "tel:*150*2*2*1*076502128*550#";
+        let ussdCode = "";
+
+        if (selectedMethod === "Airtel 1") {
+            ussdCode = "*150*2*1*076502128*550#";
+        } else if (selectedMethod === "Airtel 2") {
+            ussdCode = "*150*2*2*1*076502128*550#";
+        } else if (selectedMethod === "Mobicash") {
+            ussdCode = "*550*2*065423264*550#";
+        } else {
+            alert("Aucune méthode de paiement sélectionnée !");
+            return; // Stop execution if no method is selected
+        }
+
+        console.log("Code USSD généré :", ussdCode); // Debugging
+        window.location.href = "tel:" + encodeURIComponent(ussdCode);
     }
-    else if (selectedMethod === "Airtel Money" || selectedMethod === "Airtel 2") {
-        window.location.href = "tel:*150*2*1*076502128*550#";
-    } 
-    else if (selectedMethod === "Mobicash") {
-        window.location.href = "tel:*550*2*065423264*550#";
-    } 
-    else {
-        alert("Aucune méthode de paiement sélectionnée !");
-    }
-}
 
 
     </script>
