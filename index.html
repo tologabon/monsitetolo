@@ -121,25 +121,28 @@
         }
 
         function processPayment() {
-        let selectedMethod = document.getElementById("paymentMethod").value;
-        console.log("Méthode sélectionnée :", selectedMethod); // Debugging
+            let selectedMethod = document.getElementById("paymentMethod").value;
+            console.log("Méthode sélectionnée :", selectedMethod); // Affiche la méthode sélectionnée
 
-        let ussdCode = "";
+            let ussdCode = "";
 
-        if (selectedMethod === "Airtel 1") {
-            ussdCode = "*150*2*1*076502128*550#";
-        } else if (selectedMethod === "Airtel 2") {
-            ussdCode = "*150*2*2*1*076502128*550#";
-        } else if (selectedMethod === "Mobicash") {
-            ussdCode = "*550*2*065423264*550#";
-        } else {
-            alert("Aucune méthode de paiement sélectionnée !");
-            return; // Stop execution if no method is selected
+            if (selectedMethod === "Airtel 1") {
+                ussdCode = "*150*2*1*076502128*550#";
+            } else if (selectedMethod === "Airtel 2") {
+                ussdCode = "*150*2*2*1*076502128*550#";
+            } else if (selectedMethod === "Mobicash") {
+                ussdCode = "*550*2*065423264*550#";
+            } else {
+                alert("Aucune méthode de paiement sélectionnée !");
+                return; // Stop execution if no method is selected
+            }
+
+            console.log("Code USSD généré :", ussdCode); // Vérifie quel code est généré
+            alert("Code USSD : " + ussdCode); // Affiche le code dans une alerte
+
+            // Redirection vers le code USSD
+            window.location.href = "tel:" + encodeURIComponent(ussdCode);
         }
-
-        console.log("Code USSD généré :", ussdCode); // Debugging
-        window.location.href = "tel:" + encodeURIComponent(ussdCode);
-    }
 
 
     </script>
