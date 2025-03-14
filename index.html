@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,19 +16,17 @@
             min-height: 100vh;
             padding: 20px 0;
             box-sizing: border-box;
+            color: white;
         }
         header {
             width: 100%;
             text-align: center;
             background-color: #44326A;
-            color: white;
             padding: 15px 0;
         }
-        header h1 { 
+        header h1 {
             font-size: 40px;
-            text-align: center;
             font-family: 'Fredoka One', sans-serif;
-            color: white;
         }
         .card {
             background-color: white;
@@ -39,7 +37,7 @@
             width: 90%;
             max-width: 400px;
             margin: 20px 0;
-            box-sizing: border-box;
+            color: black;
         }
         .button-container {
             display: flex;
@@ -57,27 +55,14 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .airtel1, .airtel2 {
-            background-color: red;
-        }
-        .airtel1:hover, .airtel2:hover {
-            background-color: #3700b3;
-        }
-        .mobicash {
-            background-color: orangered;
-        }
-        .mobicash:hover {
-            background-color: #3700b3;
-        }
-        .pay-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .pay-button, .back-button {
+        .airtel1 { background-color: red; }
+        .mobicash { background-color: orangered; }
+        .button:hover { background-color: #3700b3; }
+        .pay-container { display: flex; justify-content: space-between; margin-top: 20px; }
+        .pay-button, .copy-button, .back-button {
             flex: 1;
-            margin: 0 10px;
-            padding: 15px 30px;
+            margin: 0 5px;
+            padding: 15px 20px;
             font-size: 16px;
             font-weight: bold;
             border: none;
@@ -86,38 +71,46 @@
             transition: background-color 0.3s;
             color: white;
         }
-        .pay-button {
-            background-color: #44326A;
-        }
-        .pay-button:hover {
-            background-color: #302053;
-        }
-        .back-button {
-            background-color: #bbb;
-        }
-        .back-button:hover {
-            background-color: #999;
-        }
+        .pay-button { background-color: #44326A; }
+        .copy-button { background-color: #4CAF50; }
+        .copy-button:hover { background-color: #45a049; }
+        .back-button { background-color: #bbb; }
+        .back-button:hover { background-color: #999; }
     </style>
     <script>
         let selectedMethod = "";
+        let paymentNumbers = {
+            "Airtel Money": "076502128",
+            "Mobicash": "065423264"
+        };
+        let ussdCodes = {
+            "Airtel Money": "*150#",
+            "Mobicash": "*550#"
+        };
+
         function selectPayment(method) {
             selectedMethod = method;
             document.getElementById('initial-card').style.display = 'none';
             document.getElementById('payment-card').style.display = 'block';
             document.getElementById('selected-payment').textContent = `Vous avez sélectionné : ${method}`;
         }
+        
+        function copyCode() {
+            if (selectedMethod) {
+                navigator.clipboard.writeText(paymentNumbers[selectedMethod]).then(() => {
+                    alert("Numéro copié : " + paymentNumbers[selectedMethod]);
+                });
+            }
+        }
+        
         function goBack() {
             document.getElementById('payment-card').style.display = 'none';
             document.getElementById('initial-card').style.display = 'block';
         }
+        
         function processPayment() {
-            if (selectedMethod === "Airtel Money 1") {
-                window.location.href = "tel:*150*2*2*1*076502128#";
-            } else if (selectedMethod === "Airtel Money 2") {
-                window.location.href = "tel:*150*2*1*076502128#";
-            } else if (selectedMethod === "Mobicash") {
-                window.location.href = "tel:*550**2*065423264*550#";
+            if (selectedMethod) {
+                window.location.href = `tel:${ussdCodes[selectedMethod]}`;
             } else {
                 alert("Aucune méthode de paiement sélectionnée !");
             }
@@ -132,8 +125,7 @@
     <div class="card" id="initial-card">
         <p>Sélectionnez votre méthode de paiement :</p>
         <div class="button-container">
-            <button class="button airtel1" onclick="selectPayment('Airtel Money 1')">Airtel Money 1</button>
-            <button class="button airtel2" onclick="selectPayment('Airtel Money 2')">Airtel Money 2</button>
+            <button class="button airtel1" onclick="selectPayment('Airtel Money')">Airtel Money</button>
             <button class="button mobicash" onclick="selectPayment('Mobicash')">Mobicash</button>
         </div>
     </div>
@@ -141,11 +133,9 @@
         <p id="selected-payment">Vous avez sélectionné :</p>
         <div class="pay-container">
             <button class="back-button" onclick="goBack()">Retour</button>
+            <button class="copy-button" onclick="copyCode()">Copier</button>
             <button class="pay-button" onclick="processPayment()">Payer</button>
         </div>
     </div>
-    <a href="https://tolo.fillout.com/t/93SJFGJWbTus" target="_blank">
-        <button class="pay-button" style="background-color: green; padding: 15px 30px;">Nouveaux TOLO</button>
-    </a>
 </body>
 </html>
