@@ -32,7 +32,7 @@
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             width: 90%;
             max-width: 400px;
@@ -59,7 +59,7 @@
         .mobicash { background-color: orangered; }
         .button:hover { background-color: #3700b3; }
         .pay-container { display: flex; justify-content: space-between; margin-top: 20px; }
-        .pay-button, .copy-button, .back-button {
+        .pay-button, .copy-button, .back-button, .new-tolo-button {
             flex: 1;
             margin: 0 5px;
             padding: 15px 20px;
@@ -76,6 +76,8 @@
         .copy-button:hover { background-color: #45a049; }
         .back-button { background-color: #bbb; }
         .back-button:hover { background-color: #999; }
+        .new-tolo-button { background-color: #44326a; margin-top: 10px; }
+        .new-tolo-button:hover { background-color: #0056b3; }
     </style>
     <script>
         let selectedMethod = "";
@@ -115,6 +117,12 @@
                 alert("Aucune méthode de paiement sélectionnée !");
             }
         }
+        
+        function newTolo() {
+            selectedMethod = "";
+            document.getElementById('payment-card').style.display = 'none';
+            document.getElementById('initial-card').style.display = 'block';
+        }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
@@ -128,6 +136,10 @@
             <button class="button airtel1" onclick="selectPayment('Airtel Money')">Airtel Money</button>
             <button class="button mobicash" onclick="selectPayment('Mobicash')">Mobicash</button>
         </div>
+        <a href="https://tolo.fillout.com/241">
+            <button class="new-tolo-button">Nouveau TOLO</button>
+        </a>
+        
     </div>
     <div class="card" id="payment-card" style="display: none;">
         <p id="selected-payment">Vous avez sélectionné :</p>
