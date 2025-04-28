@@ -58,8 +58,8 @@
         .airtel1 { background-color: red; }
         .mobicash { background-color: orangered; }
         .button:hover { background-color: #3700b3; }
-        .pay-container { display: flex; justify-content: space-between; margin-top: 20px; }
-        .pay-button, .copy-button, .back-button, .new-tolo-button {
+        .pay-container { display: flex; justify-content: center; margin-top: 20px; }
+        .copy-button, .back-button, .new-tolo-button {
             flex: 1;
             margin: 0 5px;
             padding: 15px 20px;
@@ -71,7 +71,6 @@
             transition: background-color 0.3s;
             color: white;
         }
-        .pay-button { background-color: #44326A; }
         .copy-button { background-color: #4CAF50; }
         .copy-button:hover { background-color: #45a049; }
         .back-button { background-color: #bbb; }
@@ -84,10 +83,6 @@
         let paymentNumbers = {
             "Airtel Money": "076502128",
             "Mobicash": "065423264"
-        };
-        let ussdCodes = {
-            "Airtel Money": "*150#",
-            "Mobicash": "*555#"
         };
 
         function selectPayment(method) {
@@ -108,14 +103,6 @@
         function goBack() {
             document.getElementById('payment-card').style.display = 'none';
             document.getElementById('initial-card').style.display = 'block';
-        }
-        
-        function processPayment() {
-            if (selectedMethod) {
-                window.location.href = `tel:${ussdCodes[selectedMethod]}`;
-            } else {
-                alert("Aucune méthode de paiement sélectionnée !");
-            }
         }
         
         function newTolo() {
@@ -139,14 +126,12 @@
         <a href="https://tolo.fillout.com/241">
             <button class="new-tolo-button">Nouveau TOLO</button>
         </a>
-        
     </div>
     <div class="card" id="payment-card" style="display: none;">
         <p id="selected-payment">Vous avez sélectionné :</p>
         <div class="pay-container">
             <button class="back-button" onclick="goBack()">Retour</button>
             <button class="copy-button" onclick="copyCode()">Copier le num. de dépôt</button>
-            <button class="pay-button" onclick="processPayment()">Payer</button>
         </div>
     </div>
 </body>
